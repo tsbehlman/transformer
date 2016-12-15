@@ -1,0 +1,8 @@
+{
+  "name": "traveler",
+  "version": "1.0.0",
+  "description": "Small, fast module for arbitrarily inserting text into a larger text",
+  "main": "index.js",
+  "author": "Trevor Behlman",
+  "license": "MIT"
+}
