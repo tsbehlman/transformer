@@ -29,14 +29,14 @@ class Transformer {
 			this.insertions.sort( ( a, b ) => a.index - b.index );
 			
 			for( let insert of this.insertions ) {
-				this._writeToBuffer( this.original.utf8Slice( this.originalIndex, insert.index ) );
+				this._writeToBuffer( this.original.substring( this.originalIndex, insert.index ) );
 				this._writeToBuffer( insert.text );
 				this.originalIndex = insert.index;
 			}
 			
 			this.insertions = [];
 			
-			this._writeToBuffer( this.original.utf8Slice( this.originalIndex, this.original.length ) );
+			this._writeToBuffer( this.original.substring( this.originalIndex, this.original.length ) );
 		}
 		
 		return this.buffer;
