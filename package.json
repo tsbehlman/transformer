@@ -1,7 +1,10 @@
 {
-  "name": "traveler",
+  "name": "transformer",
   "version": "1.0.0",
   "description": "Small, fast module for arbitrarily inserting text into a larger text",
+  "files": [
+    "index.js"
+  ],
   "main": "index.js",
   "author": "Trevor Behlman",
   "license": "MIT"
