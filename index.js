@@ -4,7 +4,7 @@ class Transformer {
 		this.outputLength = original.length;
 		this.insertions = new Array();
 		
-		this.buffer = null;
+		this.output = "";
 		this.bufferIndex = 0;
 		this.originalIndex = 0;
 	}
@@ -23,23 +23,21 @@ class Transformer {
 	}
 	
 	getSource() {
-		if( this.buffer === null ) {
-			this.buffer = Buffer.allocUnsafe( this.outputLength );
-			
+		if( this.output.length === 0 ) {
 			this.insertions.sort( ( a, b ) => a.index - b.index );
 			
-			for( let insert of this.insertions ) {
-				this._writeToBuffer( this.original.substring( this.originalIndex, insert.index ) );
-				this._writeToBuffer( insert.text );
+			for( const insert of this.insertions ) {
+				this.output += this.original.substring( this.originalIndex, insert.index );
+				this.output += insert.text;
 				this.originalIndex = insert.index;
 			}
 			
 			this.insertions = [];
 			
-			this._writeToBuffer( this.original.substring( this.originalIndex, this.original.length ) );
+			this.output += this.original.substring( this.originalIndex, this.original.length );
 		}
 		
-		return this.buffer;
+		return this.output;
 	}
 }
 
