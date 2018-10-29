@@ -12,6 +12,7 @@ class Transformer {
 	writeAt( text, index ) {
 		this.insertions.push( {
 			index: index,
+			order: this.insertions.length,
 			text: text
 		} );
 		this.outputLength += text.length;
@@ -24,7 +25,13 @@ class Transformer {
 	
 	getSource() {
 		if( this.output.length === 0 ) {
-			this.insertions.sort( ( a, b ) => a.index - b.index );
+			this.insertions.sort( ( a, b ) => {
+				let difference = a.index - b.index;
+				if( difference === 0 ) {
+					difference = a.order - b.order;
+				}
+				return difference;
+			} );
 			
 			for( const insert of this.insertions ) {
 				this.output += this.original.substring( this.originalIndex, insert.index );

@@ -51,4 +51,22 @@ describe( "Transformer", () => {
 		
 		expect( transformer.getSource().toString() ).toBe( "oﬁîgi•ñ<>a><l" );
 	} );
+	
+	it( "emits code at the same location in insertion order", () => {
+		const transformer = new Transformer( "original" );
+		
+		transformer.writeAt( "<>", 6 );
+		transformer.writeAt( "<>", 7 );
+		transformer.writeAt( "1", 3 );
+		transformer.writeAt( "2", 3 );
+		transformer.writeAt( "3", 3 );
+		transformer.writeAt( "4", 3 );
+		transformer.writeAt( "5", 3 );
+		transformer.writeAt( "6", 3 );
+		transformer.writeAt( "7", 3 );
+		transformer.writeAt( "8", 3 );
+		transformer.writeAt( "<>", 1 );
+		
+		expect( transformer.getSource().toString() ).toBe( "o<>ri12345678gin<>a<>l" );
+	} );
 } );
